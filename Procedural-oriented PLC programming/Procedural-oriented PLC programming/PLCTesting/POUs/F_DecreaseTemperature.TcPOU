@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_DecreaseTemperature" Id="{f05a62f7-741c-47ec-a84f-43983b997651}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_DecreaseTemperature
+
+VAR_INPUT
+	stMachine : REFERENCE TO ST_MachineOperatingParameters;
+	tCycleTime : REAL;
+END_VAR
+
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[stMachine.fTemperature := stMachine.fTemperature - (stMachine.fCoolingConstant * tCycleTime);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

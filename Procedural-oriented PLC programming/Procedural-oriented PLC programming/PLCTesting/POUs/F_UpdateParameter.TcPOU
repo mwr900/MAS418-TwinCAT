@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_UpdateParameter" Id="{a921a647-482c-4733-a90d-4ebb291b5813}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_UpdateParameter
+VAR_INPUT
+	bUpdateValue : BOOL;
+	fNewValue : REAL;
+	stMotorParameters : ST_MotorParameters;
+END_VAR
+
+VAR_OUTPUT
+	stMotorParametersUpdated : ST_MotorParameters;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bUpdateValue THEN
+	stMotorParametersUpdated.fMaxSpeed := fNewValue;
+ELSE
+	stMotorParametersUpdated.fMaxSpeed := stMotorParameters.fMaxSpeed;	
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

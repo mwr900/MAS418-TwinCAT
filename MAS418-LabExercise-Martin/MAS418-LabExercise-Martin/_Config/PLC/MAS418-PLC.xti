@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.55" ClassName="CNestedPlcProjDef">
 	<Project GUID="{A92DC9C8-823A-4002-B634-5ADE2B9390E2}" Name="MAS418-PLC" PrjFilePath="..\..\MAS418-PLC\MAS418-PLC.plcproj" TmcFilePath="..\..\MAS418-PLC\MAS418-PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{D3C6B79A-0A95-E26B-0E97-2D3F9A7E7808}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="MAS418-PLC\MAS418-PLC.tmc" TmcHash="{ED9DA165-8C58-D5D8-1258-0920F4300548}">
 			<Name>MAS418-PLC Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

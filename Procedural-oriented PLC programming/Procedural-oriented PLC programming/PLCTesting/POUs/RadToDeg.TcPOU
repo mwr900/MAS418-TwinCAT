@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="RadToDeg" Id="{7f79deb0-186c-47c5-b496-96e4697c7c77}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION RadToDeg : REAL
+
+VAR_INPUT
+	fAngle : REAL;
+END_VAR
+
+VAR
+	fRadToDegConstant : REAL := 57.295;
+END_VAR
+
+VAR_OUTPUT
+	fAngleDeg : REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fAngleDeg := fAngle * fRadToDegConstant;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

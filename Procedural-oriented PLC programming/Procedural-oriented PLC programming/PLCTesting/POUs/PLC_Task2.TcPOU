@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PLC_Task2" Id="{10974116-5aa1-4901-92bb-5eda4bbd5e39}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PLC_Task2
+VAR
+	tofTimer : TOF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tofTimer(IN := GVL_Task2.stTimer.bStart, PT := GVL_Task2.stTimer.tTime, Q => GVL_Task2.stTimer.bQ, ET => GVL_Task2.stTimer.tElapsedTime);
+
+GVL_Task2.fMotor1Rad := 2.0;
+RadToDeg(GVL_Task2.fMotor1Rad, fAngleDeg => GVL_Task2.fMotor1Deg);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

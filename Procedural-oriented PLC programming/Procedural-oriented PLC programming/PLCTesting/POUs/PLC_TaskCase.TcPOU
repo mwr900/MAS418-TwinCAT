@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PLC_TaskCase" Id="{c4cd37a9-cc5d-4edf-9deb-f5a66f654fe7}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PLC_TaskCase
+VAR
+	stMachine1 : ST_MachineOperatingParameters;
+	tCycleTime : REAL := 10.0; // ms
+	
+	fbRTrig : R_TRIG;
+	bStart : BOOL;
+	
+	tonTimerHeating : TON;
+	tonTimerSmelting : TON;
+	tonTimerCooling : TON;
+	
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE stMachine1.unCurrentState OF
+	
+	E_MachineConditions.unIsReadyToStart:		
+		fbRTrig(CLK := stMachine1.bStartButtonPressed, Q => bStart);
+		
+		IF bStart THEN
+			stMachine1.unCurrentState := E_MachineConditions.unIsHeating;
+		END_IF
+		
+		
+	E_MachineConditions.unIsHeating: //////////////////////////
+		stMachine1.bIsHeating := TRUE;
+		
+		tonTimerHeating(
+		IN := stMachine1.bIsHeating, 
+		PT := stMachine1.tTimeToHeat);
+		
+		IF tonTimerHeating.ET < stMachine1.tTimeToHeat THEN
+			F_IncreaseTemperature(stMachine := stMachine1, tCycleTime := tCycleTime);
+		END_IF
+		
+		IF tonTimerHeating.Q = TRUE THEN
+			tonTimerHeating(IN := FALSE); // Resets the TON timer for heating, since this is the next cycle
+			stMachine1.bIsHeating := FALSE; // Is not heating anymore
+			stMachine1.unCurrentState := E_MachineConditions.unIsSmelting;
+		END_IF
+		
+		
+	
+	E_MachineConditions.unIsSmelting: /////////////////
+		
+		stMachine1.bIsSmelting := TRUE;
+		
+		tonTimerSmelting(
+		IN := stMachine1.bIsSmelting, 
+		PT := stMachine1.tTimeToSmelt);
+		
+		IF tonTimerSmelting.ET < stMachine1.tTimeToSmelt THEN
+			stMachine1.fTemperature := stMachine1.fTemperature;
+		END_IF
+		
+		IF tonTimerSmelting.Q = TRUE THEN
+			tonTimerSmelting(IN := FALSE); // Resets the TON timer for smelting, since this is the next cycle
+			stMachine1.bIsSmelting := FALSE; // Is not smelting anymore
+			stMachine1.unCurrentState := E_MachineConditions.unIsCooling;
+		END_IF
+	
+		
+		E_MachineConditions.unIsCooling: //////////////
+		
+		stMachine1.bIsCooling := TRUE;
+		
+		tonTimerCooling(
+		IN := stMachine1.bIsCooling, 
+		PT := stMachine1.tTimeToCool);
+		
+		IF tonTimerCooling.ET < stMachine1.tTimeToCool THEN
+			F_DecreaseTemperature(stMachine := stMachine1, tCycleTime := tCycleTime);
+		END_IF
+		
+		IF tonTimerCooling.Q = TRUE THEN
+			tonTimerCooling(IN := FALSE); // Resets the TON timer for cooling, since it ends here next cycle
+			stMachine1.bIsCooling := FALSE; // Is not cooling anymore
+			stMachine1.unCurrentState := E_MachineConditions.unIsReadyToStart;
+			bStart := FALSE;
+		END_IF
+			
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

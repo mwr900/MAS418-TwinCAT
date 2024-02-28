@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PLC_Task1" Id="{44df76f3-f4d9-44c9-8003-18505af3b714}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PLC_Task1
+VAR
+	dtPointer : POINTER TO DATE_AND_TIME;
+	nPointer : POINTER TO INT;
+	
+	dtReference : REFERENCE TO DATE_AND_TIME;
+	nReference : REFERENCE TO INT;
+	
+	sensor1 : INT;
+	
+	tonTimer : TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[dtPointer := ADR(GVL_Task1.dtThisIsADTVariable);
+dtPointer^ := DT#2025-12-12-12:30:30;
+
+nPointer := ADR(GVL_Task1.nThisIsAnInteger);
+nPointer^ := 40;
+
+dtReference REF=GVL_Task1.dtThisIsADTVariable;
+nReference REF=GVL_Task1.nThisIsAnInteger;
+
+dtReference := DT#2025-12-12-12:30:31;
+nReference := 70;
+
+GVL_Task1.dThisIsADateArray[3] := D#2024-02-04;
+
+sensor1 := SensorBrands.Parker;
+
+tonTimer(IN := GVL_Task1.bStart, PT := GVL_Task1.tTime, Q => GVL_Task1.bQ, ET => GVL_Task1.tElapsedTime);
+
+
+
+
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

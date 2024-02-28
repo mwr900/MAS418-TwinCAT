@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_Task1" Id="{5cb002cc-12ee-461d-9542-74a35330b90d}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	dtThisIsADTVariable : DATE_AND_TIME := DT#2024-02-26-12:07:05;
+	nThisIsAnInteger : INT := 30;
+	dThisIsADateArray : ARRAY[0..3] OF DATE := [D#2024-02-26, D#2024-02-27, D#2024-02-28, D#2024-02-29];
+	
+	bStart : BOOL;
+	tTime : TIME := T#10S;
+	tElapsedTime : TIME;
+	bQ : BOOL;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

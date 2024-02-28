@@ -14,8 +14,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-bEnable := bStart;]]></ST>
+      <ST><![CDATA[bEnable := bStart;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

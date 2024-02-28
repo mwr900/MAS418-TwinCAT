@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_MachineOperatingParameters" Id="{f81c5da8-0c64-45bb-9dc7-16975bd47c37}">
+    <Declaration><![CDATA[TYPE ST_MachineOperatingParameters :
+STRUCT
+	unCurrentState : UINT;
+	bStartButtonPressed : BOOL;
+	fTemperature : REAL;
+	
+	bIsHeating : BOOL;
+	bIsSmelting : BOOL;
+	bIsCooling : BOOL;
+	
+	tTimeToHeat : TIME := T#5S;
+	tTimeToSmelt : TIME := T#5S;
+	tTimeToCool : TIME := T#10S;
+	
+	fHeatingConstant : REAL := 0.1; // Degree / Cycle time (1ms)
+	fCoolingConstant : REAL := 0.05; // Degree / Cycle time (1ms)
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
